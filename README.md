@@ -1,7 +1,7 @@
 # ImitationBasketball
 
 
-Notebook makes pickle files with state-action trajectories. Not completed yet, need to clean. 
+Notebook needs to make pickle files with state-action trajectories. Not completed yet, need to clean. Expert demonstrations file, expects a *.pkl of a `runner.Experiences` object.
 
 I will be making a custom environment in OpenAI gym (https://blog.paperspace.com/creating-custom-environments-openai-gym/)
 
