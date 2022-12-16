@@ -1,5 +1,16 @@
 # ImitationBasketball
 
+## Project Description
+
+In this project we attempt to model and imitate the complex expert behaviour of multiple agents. 
+More specifically for imitating NBA defenses. 
+
+Our solution uses (Multi-Agent) Generative Adversarial Imitation Learning, custom learning environments and novel data preparation technique. 
+
+If we can succeed then we can use imitated NBA defenses to improve offensive NBA strategy. 
+
+## Project Code Layout
+
 The three different environments are described here:
 
 | Version                 | v1                                                     | v2                                                                                                                         | v3                                                    |
@@ -18,6 +29,7 @@ When we collect data we ensure that the X and Y co-ordinates are rescale to be b
 'TestModel.py' takes a model and tests it. It does this by showing how the model would have responded to a given offensive trajectory.
 The relevant OpenAI Gym Environments are in the  in Utils 'BballEnv', 'BballEnv-v2' and 'BballEnv-v3'.
 
+## Example Commands
 
 To run a quick experiment using the limited number of data that has been uploaded to github in the JsonFiles folder, to see how the repository works, thry the following sequence:
 
@@ -41,7 +53,9 @@ Then, use the model to attempt to predict a trajectory:
 python TestModel.py -m Models/READMETestv1.zip -v v1 -n READMETest -d Demos/READMETestv1.npz
 ```
 
-Below we can see some plots from the different version testing on new trajectories:
+## Results
+Below we can 
+see some plots from the different version testing on new trajectories:
 
 ![Alt text](TestImages/FullDatav1.png?raw=true "Title")
 
