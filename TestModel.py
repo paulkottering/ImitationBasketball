@@ -108,16 +108,28 @@ def main(**kwargs):
             plt.title("Trajectory for v2 - 1M Timesteps Trained - 569 Games")
 
         elif kwargs.get("version") == "v3":
-            for i in range(5):
-                ax.scatter(state_now[2 * i], state_now[2 * i + 1], c='b')
-                ax.scatter(action_expert[2 * i], action_expert[2 * i + 1], c='y')
-                x = np.clip(action_model[2 * i].detach().numpy(),0,1)
-                y = np.clip(action_model[2 * i + 1].detach().numpy(),0,1)
-                ax.scatter(x,y, c='r')
+            if kwargs.get("GAIL") == "t":
+                for i in range(5):
+                    ax.scatter(state_now[2 * i], state_now[2 * i + 1], c='b')
+                    ax.scatter(action_expert[2 * i], action_expert[2 * i + 1], c='y')
+                    x = np.clip(action_model[2 * i], 0, 1)
+                    y = np.clip(action_model[2 * i + 1], 0, 1)
+                    ax.scatter(x, y, c='r')
 
-            if index != h-2:
-                state_model = state_traj[index+1]
-            plt.title("Trajectory for v3 - 1M Timesteps Trained- 569 Games")
+                if index != h - 2:
+                    state_model = state_traj[index + 1]
+                plt.title("Trajectory for v3 - 1M Timesteps Trained- 569 Games")
+            else:
+                for i in range(5):
+                    ax.scatter(state_now[2 * i], state_now[2 * i + 1], c='b')
+                    ax.scatter(action_expert[2 * i], action_expert[2 * i + 1], c='y')
+                    x = np.clip(action_model[2 * i].detach().numpy(),0,1)
+                    y = np.clip(action_model[2 * i + 1].detach().numpy(),0,1)
+                    ax.scatter(x,y, c='r')
+
+                if index != h-2:
+                    state_model = state_traj[index+1]
+                plt.title("Trajectory for v3 - 1M Timesteps Trained- 569 Games")
 
     ax.set_xlim([0, 1])
     ax.set_ylim([0, 1])
