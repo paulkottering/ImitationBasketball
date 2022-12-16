@@ -30,7 +30,6 @@ def main(**kwargs):
 
     if kwargs.get("GAIL") == 't':
         model = GAIL.load(kwargs.get("modelfile"))
-
         if kwargs.get("version") == "v1":
             env = BballScape1()
         elif kwargs.get("version") == "v2":
@@ -55,6 +54,10 @@ def main(**kwargs):
 
     state_model = state_traj[0]
 
+    fig,ax = plt.subplots(figsize=(9, 5))
+    img = plt.imread("court.png")
+    ax.imshow(img,extent=[0,1,0,1], aspect='auto')
+
     for index in range(h-1):
 
         state_now = state_traj[index]
@@ -66,13 +69,13 @@ def main(**kwargs):
 
         if kwargs.get("version") == "v1":
             for i in range(5):
-                plt.scatter(state_now[2 * i], state_now[2 * i + 1], c='b')
-                plt.scatter(state_now[10 + 2 * i], state_now[10 + 2 * i + 1], c='y')
+                ax.scatter(state_now[2 * i], state_now[2 * i + 1], c='b')
+                ax.scatter(state_now[10 + 2 * i], state_now[10 + 2 * i + 1], c='y')
                 x = np.clip(state_model[10 + 2 * i] + action_model[2 * i],0,1)
                 y = np.clip(state_model[10 + 2 * i + 1] + action_model[2 * i + 1],0,1)
 
-                plt.scatter(x, y, c='r')
-                plt.arrow(state_model[10 + 2 * i],
+                ax.scatter(x, y, c='r')
+                ax.arrow(state_model[10 + 2 * i],
                           state_model[10 + 2 * i + 1],
                           x-state_model[10 + 2 * i],
                           y-state_model[10 + 2 * i + 1])
@@ -81,18 +84,19 @@ def main(**kwargs):
                 next_state = state_traj[index+1]
                 state_model[:9] = next_state[:9]
                 state_model[10:20] = np.clip(state_model[10:20] + action_model,0,1)
+            plt.title("Trajectory for v1 - 1M Timesteps Trained - 569 Games")
 
         elif kwargs.get("version") == "v2":
             for i in range(5):
-                plt.scatter(state_now[2 * i], state_now[2 * i + 1], c='b')
-                plt.scatter(state_now[20 + 2 * i], state_now[20 + 2 * i + 1], c='y')
+                ax.scatter(state_now[2 * i], state_now[2 * i + 1], c='b')
+                ax.scatter(state_now[20 + 2 * i], state_now[20 + 2 * i + 1], c='y')
 
                 x = np.clip(state_model[20 + 2 * i] + action_model[2 * i], 0, 1)
                 y = np.clip(state_model[20 + 2 * i + 1] + action_model[2 * i + 1], 0, 1)
 
-                plt.scatter(x, y, c='r')
+                ax.scatter(x, y, c='r')
 
-                plt.arrow(state_model[20 + 2 * i] ,
+                ax.arrow(state_model[20 + 2 * i] ,
                           state_model[20 + 2 * i + 1] ,
                           x-state_model[20 + 2 * i],
                           y-state_model[20 + 2 * i + 1])
@@ -101,20 +105,29 @@ def main(**kwargs):
                 next_state = state_traj[index+1]
                 state_model[:19] = next_state[:19]
                 state_model[20:30] = np.clip(state_model[20:30] + action_model,0,1)
+            plt.title("Trajectory for v2 - 1M Timesteps Trained - 569 Games")
 
         elif kwargs.get("version") == "v3":
             for i in range(5):
-                plt.scatter(state_now[2 * i], state_now[2 * i + 1], c='b')
-                plt.scatter(action_expert[2 * i], action_expert[2 * i + 1], c='y')
+                ax.scatter(state_now[2 * i], state_now[2 * i + 1], c='b')
+                ax.scatter(action_expert[2 * i], action_expert[2 * i + 1], c='y')
                 x = np.clip(action_model[2 * i].detach().numpy(),0,1)
                 y = np.clip(action_model[2 * i + 1].detach().numpy(),0,1)
-                plt.scatter(x,y, c='r')
+                ax.scatter(x,y, c='r')
 
             if index != h-2:
                 state_model = state_traj[index+1]
+            plt.title("Trajectory for v3 - 1M Timesteps Trained- 569 Games")
 
-    plt.xlim([0, 1])
-    plt.ylim([0, 1])
+    ax.set_xlim([0, 1])
+    ax.set_ylim([0, 1])
+
+    ax.scatter(0,0.5,  c ='b', label = 'Attacking Team True')
+    ax.scatter(0, 0.5, c='y', label='Defending Team True')
+    ax.scatter(0, 0.5, c='r', label='Defending Team Learned')
+    ax.scatter(0, 0.5, c='k', label='Basketball Hoop',s=40)
+    ax.legend()
+
     plt.savefig('TestImages/' + kwargs.get("name") + kwargs.get("version"))
 
 

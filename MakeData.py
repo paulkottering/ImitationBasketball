@@ -142,7 +142,9 @@ def main(**kwargs):
         num_files = kwargs.get("filelimit")
     else:
         num_files = len(json_list)
-    print("Starting Data Refactoring ...")
+
+    print("Starting Data Refactoring. Number of files = ",num_files)
+
     for i in range(num_files):
         print('File ',i)
         json = json_list[i]

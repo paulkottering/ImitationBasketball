@@ -71,15 +71,17 @@ def main(**kwargs):
         model = FullConnec()
         loss_function = nn.MSELoss()
         optimizer= torch.optim.SGD(model.parameters(), lr=0.001)
-        epochs = 50
-
+        epochs = 500
+        print(len(train_x))
         for epoch in range(epochs):
+            print(epoch)
             for inputs,targets in trainloader:
                 optimizer.zero_grad()
                 outputs = model(inputs.float())
                 loss = loss_function(outputs.float(),targets.float())
                 loss.backward()
                 optimizer.step()
+            print(loss)
 
         torch.save(model.state_dict(),"Models/" + kwargs.get("name") + kwargs.get("version"))
 

@@ -12,6 +12,7 @@ def rescale(position, xory, attacking_right):
 
 
 def makestateaction1(moments, i, attacking_team_first, attacking_right):
+    current = moments[i]
     if attacking_team_first == True:
         O = 0
         D = 5
