@@ -84,7 +84,7 @@ def main(**kwargs):
                 next_state = state_traj[index+1]
                 state_model[:9] = next_state[:9]
                 state_model[10:20] = np.clip(state_model[10:20] + action_model,0,1)
-            plt.title("Trajectory for v1 - 1M Timesteps Trained - 569 Games")
+            plt.title("Trajectory for v1 ")
 
         elif kwargs.get("version") == "v2":
             for i in range(5):
@@ -105,7 +105,7 @@ def main(**kwargs):
                 next_state = state_traj[index+1]
                 state_model[:19] = next_state[:19]
                 state_model[20:30] = np.clip(state_model[20:30] + action_model,0,1)
-            plt.title("Trajectory for v2 - 1M Timesteps Trained - 569 Games")
+            plt.title("Trajectory for v2 ")
 
         elif kwargs.get("version") == "v3":
             if kwargs.get("GAIL") == "t":
@@ -118,7 +118,7 @@ def main(**kwargs):
 
                 if index != h - 2:
                     state_model = state_traj[index + 1]
-                plt.title("Trajectory for v3 - 1M Timesteps Trained- 569 Games")
+                plt.title("Trajectory for v3 ")
             else:
                 for i in range(5):
                     ax.scatter(state_now[2 * i], state_now[2 * i + 1], c='b')
@@ -129,7 +129,7 @@ def main(**kwargs):
 
                 if index != h-2:
                     state_model = state_traj[index+1]
-                plt.title("Trajectory for v3 - 1M Timesteps Trained- 569 Games")
+                plt.title("Trajectory for v3 ")
 
     ax.set_xlim([0, 1])
     ax.set_ylim([0, 1])
