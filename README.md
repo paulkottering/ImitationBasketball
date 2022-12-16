@@ -14,29 +14,30 @@ The three different environments are described here:
 
 When we collect data we ensure that the X and Y co-ordinates are rescale to be betwen 0 and 1, as such the state space for X and Y co-ordinates are limited to be between 0 and 1.
 
-Here we provide a description of the files and their functionality:
 
 'requirements.txt' specifies what packages are need to run the algorithms. 
-
 'MakeData.py' converts a directory of json files containing the raw SportVU data into a '.npz' file and saves this in the Demos file.
-The file takes in three arguments, the path to the directory of json files, the version of the environment data which you would like to save and the name of the data collection.
-For example, the following command line would convert it to a v2 data set:
-
-```
-python MakeData.py -j JsonFiles -v v2 -n Name
-```
-
 'MakeModel.py' retrieves data from an npz file and builds and trains a model. It then saves the model in the Models file according to the name given. 
-The argument '-t' indicates the number of timesteps to train the model. The default is 1 million:
-
-```
-python MakeModel.py -d Demos/PathToData.npz -v v2 -n Name -t 10000
-```
-
 'TestModel.py' takes a model and tests it. It does this by showing how the model would have responded to a given offensive trajectory.
-The file takes in the trained model as input, the version, and the path to a trajectory. 
-It then saves an image in the Images folder, which displays the trajectories of the offensive and defensive players on the court.  :
+
+To run a quick experiment using the limited number of data that has been uploaded to github in the JsonFiles folder, to see how the repository works, thry the following sequence:
+
+First set up a virtual environment and install the necessary packages:
+
+``` 
+pip install requirements.txt
+```
+
+Then, clean the data and save it in a usable format:
 
 ```
-python TestModel.py -m Models/TestMakev2.zip -v v2 -n Plotting -d Demos/TestMakeDatav2.npz 
+python MakeData.py -j JsonFiles -v v1 -n READMETest -fl 2
+```
+Then, use the data to build a model:
+```
+python MakeModel.py -d Demos/READMETestv1.npz -v v1 -n READMETest -t 2000
+```
+Then, use the model to attempt to predict a trajectory:
+``` 
+python TestModel.py -m Models/READMETestv1.zip -v v1 -n READMETest -d Demos/READMETestv1.npz
 ```
