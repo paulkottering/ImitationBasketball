@@ -123,7 +123,7 @@ class BballScape3(gym.Env):
 
         self.state = np.random.rand(12, )
 
-    def _step(self, action):
+    def step(self, action):
 
         random_move = (np.random.rand(12,)-0.5)/10
 
@@ -135,12 +135,12 @@ class BballScape3(gym.Env):
 
         return self.state, reward, False, {}
 
-    def _reset(self):
+    def reset(self):
         # Reset the state of the environment to an initial random state
-        self.state = (np.random.rand(12,), 0, 1)
+        self.state = np.clip(np.random.rand(12,), 0, 1)
         return self.state
 
-    def _render(self, mode='human'):
+    def render(self, mode='human'):
         # render the environment to the screen
         return self.state
 
