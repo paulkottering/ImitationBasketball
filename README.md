@@ -1,8 +1,5 @@
 # ImitationBasketball
 
-
-The relevant OpenAI Gym Environments are in the files 'BballEnv', 'BballEnv-v2' and 'BballEnv-v3'.
-
 The three different environments are described here:
 
 | Version                 | v1                                                     | v2                                                                                                                         | v3                                                    |
@@ -19,6 +16,8 @@ When we collect data we ensure that the X and Y co-ordinates are rescale to be b
 'MakeData.py' converts a directory of json files containing the raw SportVU data into a '.npz' file and saves this in the Demos file.
 'MakeModel.py' retrieves data from an npz file and builds and trains a model. It then saves the model in the Models file according to the name given. 
 'TestModel.py' takes a model and tests it. It does this by showing how the model would have responded to a given offensive trajectory.
+The relevant OpenAI Gym Environments are in the  in Utils 'BballEnv', 'BballEnv-v2' and 'BballEnv-v3'.
+
 
 To run a quick experiment using the limited number of data that has been uploaded to github in the JsonFiles folder, to see how the repository works, thry the following sequence:
 
