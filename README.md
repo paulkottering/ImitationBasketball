@@ -40,3 +40,11 @@ Then, use the model to attempt to predict a trajectory:
 ``` 
 python TestModel.py -m Models/READMETestv1.zip -v v1 -n READMETest -d Demos/READMETestv1.npz
 ```
+
+Below we can see some of the plots from the different version testing on new trajectories:
+
+![Alt text](TestImages/FullDatav1.png?raw=true "Title")
+
+![Alt text](TestImages/FullDatav2.png?raw=true "Title")
+
+![Alt text](TestImages/FullDatav3.png?raw=true "Title")
